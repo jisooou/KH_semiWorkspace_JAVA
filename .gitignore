@@ -1,0 +1,6 @@
+*.lock
+*.log
+*.ini
+*.zip
+Servers/
+.metadata/
