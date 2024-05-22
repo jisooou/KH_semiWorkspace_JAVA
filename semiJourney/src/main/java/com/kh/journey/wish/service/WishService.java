@@ -58,4 +58,24 @@ public class WishService {
 		
 	}
 
+
+	public int delete(WishVo wishVo) throws Exception{
+		
+//		비즈니스 로직
+		
+//		DAO 호출
+		Connection conn = getConnection();
+		int result = dao.delete(conn, wishVo);
+		
+		if(result == 1) {
+			commit(conn);
+		}else {
+			rollback(conn);
+			throw new Exception("게시글 삭제 중에 예외 발생...");
+		}
+		close(conn);
+		
+		return result;
+	}
+
 }

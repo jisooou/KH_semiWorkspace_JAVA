@@ -52,5 +52,20 @@ public class WishDao {
 	}
 
 
+	public int delete(Connection conn, WishVo wishVo) throws Exception {
+
+//		SQL
+		String sql = "DELETE FROM WISH_LIST WHERE NO = ? AND MEM_NO = ?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, wishVo.getNo());
+        pstmt.setString(2, wishVo.getMemNo());
+        int result = pstmt.executeUpdate();
+        
+        close(pstmt);
+        
+        return result;
+    }
+
+
 
 }
