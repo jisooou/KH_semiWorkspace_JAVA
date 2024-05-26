@@ -2,9 +2,7 @@ package com.kh.journey.wish.service;
 
 import static com.kh.journey.db.JDBCTemplate.close;
 import static com.kh.journey.db.JDBCTemplate.getConnection;
-import static com.kh.journey.db.JDBCTemplate.close;
 import static com.kh.journey.db.JDBCTemplate.commit;
-import static com.kh.journey.db.JDBCTemplate.getConnection;
 import static com.kh.journey.db.JDBCTemplate.rollback;
 
 import java.sql.Connection;

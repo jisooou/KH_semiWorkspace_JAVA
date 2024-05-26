@@ -11,11 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/home")
 public class HomeController extends HttpServlet {
 	
+	
+//	홈페이지 화면
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getRequestDispatcher("/WEB-INF/views/home.jsp").forward(req, resp);
 	}
 	
-//	http://127.0.0.1:8888/journey/home
+	
+//	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+	}
 
 }

@@ -8,8 +8,9 @@
 </head>
 <body>
 
-	<h1>에러 화면</h1>
+	<h1>에러화면</h1>
 	
-	<h2>${errMsg}</h2>
+	<h2>메세지 : ${errMsg}</h2>
+
 </body>
 </html>
