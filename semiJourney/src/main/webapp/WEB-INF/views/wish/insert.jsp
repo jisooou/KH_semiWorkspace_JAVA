@@ -55,33 +55,7 @@
           </div>
         </section>
         
-        <!--  아래 main부분 객실컨트롤러 만들면 아래 코드로 사용하기
-        <div class="main">
-	      <div class="image-container">
-	        <c:choose>
-	            <c:when test="${not empty voList}">
-	                <c:forEach var="wish" items="${voList}">
-	                    <div class="accomodation">
-	                        <img src="${wish.imageUrl}" alt="숙소 사진">
-	                        <div class="heart-icon" room_no="${wish.roomNo}" onclick="clickHeart(this)">
-	                            <img class="heart-empty" src="./image/emptyheart.svg" alt="빈 찜 하트">
-	                            <img class="heart-filled" src="./image/pinkheart.png" alt="찜 하트">
-	                        </div>
-	                        <div id="place-name">${wish.roomName}</div>
-	                        <div id="place-score">★ ${wish.grade}</div>
-	                        <div id="place">${wish.location}</div>
-	                        <div id="place-date">${wish.price} / 박</div>
-	                    </div>
-	                </c:forEach>
-	            </c:when>
-	            <c:otherwise>
-	                <p>위시리스트에 등록된 항목이 없습니다.</p>
-	            </c:otherwise>
-	        </c:choose>
-	      </div>
-	    </div>
-	    -->
-    
+   
         <div class="main">
           <div class="image-container">
             <div class="accomodation">

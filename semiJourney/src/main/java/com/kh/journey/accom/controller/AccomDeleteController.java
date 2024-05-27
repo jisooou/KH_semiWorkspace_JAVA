@@ -25,11 +25,9 @@ public class AccomDeleteController extends HttpServlet {
 
             // 데이터 꺼내기
             String no = req.getParameter("no");
-            String hostNo = ((HostVo) session.getAttribute("loginHostVo")).getNo();
 
             AccomVo vo = new AccomVo();
             vo.setNo(no);
-            vo.setHostNo(hostNo);
 
             // 서비스 호출
             AccomService as = new AccomService();

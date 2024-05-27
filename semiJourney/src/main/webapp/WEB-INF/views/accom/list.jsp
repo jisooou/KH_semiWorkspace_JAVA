@@ -10,17 +10,28 @@
 <title>숙소 목록</title>
 
 <link rel="stylesheet" href="/journey/resources/css/accomList.css">
+<script defer src="/journey/resources/js/accomStatusDelete.js"></script>
+
 </head>
 <body>
 	<div class="accom-container">
 		<h1>숙소 목록</h1>
+
+		<!-- 숙소 삭제했을 때 삭제했다는 알림 띄우기 -->
+		<c:if test="${not empty sessionScope.alertMsg}">
+			<script type="text/javascript">
+				alert("${sessionScope.alertMsg}");
+			<%session.removeAttribute("alertMsg");%>
+			</script>
+		</c:if>
+
 		<c:choose>
 			<c:when test="${not empty voList}">
 				<c:forEach var="vo" items="${voList}">
 					<div id="${vo.no}" class="accom-list">
 						<img src="/journey/resources/upload/${vo.imgUrl}" alt="숙소 사진">
 						<div class="accom-detail">
-							<span class="status">등록 중</span>
+							<span id="status-${vo.no}" class="status">등록 중</span>
 							<h3>${vo.name}</h3>
 							<p>${vo.address}</p>
 
@@ -29,10 +40,8 @@
 								<button type="submit">수정하기</button>
 							</form>
 
-							<form action="/journey/accom/delete" method="post">
-								<input type="hidden" name="no" value="${vo.no}">
-								<button type="submit">삭제</button>
-							</form>
+							<button type="button" onclick="handleDelete(${vo.no});">삭제</button>
+							
 						</div>
 					</div>
 				</c:forEach>

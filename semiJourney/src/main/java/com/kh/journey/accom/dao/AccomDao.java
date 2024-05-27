@@ -48,7 +48,6 @@ public class AccomDao {
 		List<AccomVo> accomList = new ArrayList<AccomVo>();
 		while (rs.next()) {
 			String no = rs.getString("NO");
-
 			String name = rs.getString("NAME");
 			String address = rs.getString("ADDRESS");
 			String swimYn = rs.getString("SWIM_YN");
@@ -82,10 +81,48 @@ public class AccomDao {
 		return accomList;
 	}
 
+	public AccomVo getAccomByNo(Connection conn, String no) throws Exception {
+		String sql = "SELECT * FROM ACCOMMODATION WHERE NO=?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, no);
+		ResultSet rs = pstmt.executeQuery();
+
+		AccomVo vo = null;
+		if (rs.next()) {
+//			String no = rs.getString("NO");
+			String name = rs.getString("name");
+			String address = rs.getString("address");
+			String swimYn = rs.getString("SWIM_YN");
+			String spaYn = rs.getString("SPA_YN");
+			String disabledYn = rs.getString("DISABLED_YN");
+			String parkingYn = rs.getString("PARKING_YN");
+			String elevatorYn = rs.getString("ELEVATOR_YN");
+			String breakfastYn = rs.getString("BREAKFAST_YN");
+			String smokeYn = rs.getString("SMOKE_YN");
+			String imgUrl = rs.getString("IMG_URL");
+
+			vo = new AccomVo();
+			vo.setNo(no);
+			vo.setName(name);
+			vo.setAddress(address);
+			vo.setSwimYn(swimYn);
+			vo.setSpaYn(spaYn);
+			vo.setDisabledYn(disabledYn);
+			vo.setParkingYn(parkingYn);
+			vo.setElevatorYn(elevatorYn);
+			vo.setBreakfastYn(breakfastYn);
+			vo.setSmokeYn(smokeYn);
+			vo.setImgUrl(imgUrl);
+		}
+		close(rs);
+		close(pstmt);
+		return vo;
+	}
+
 	public int edit(Connection conn, AccomVo vo) throws Exception {
 
 //		SQL
-		String sql = "UPDATE ACCOMMODATION SET NAME=? ,ADDRESS=? ,SWIM_YN=? ,SPA_YN=? ,DISABLED_YN=? ,PARKING_YN=? ,ELEVATOR_YN=? ,BREAKFAST_YN=? ,SMOKE_YN=? ,IMG_URL=? WHERE NO=?";
+		String sql = "UPDATE ACCOMMODATION SET NAME=? ,ADDRESS=? ,SWIM_YN=? ,SPA_YN=? ,DISABLED_YN=? ,PARKING_YN=? ,ELEVATOR_YN=? ,BREAKFAST_YN=? ,SMOKE_YN=?, IMG_URL=? WHERE NO=?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, vo.getName());
 		pstmt.setString(2, vo.getAddress());
@@ -98,72 +135,25 @@ public class AccomDao {
 		pstmt.setString(9, vo.getSmokeYn());
 		pstmt.setString(10, vo.getImgUrl());
 		pstmt.setString(11, vo.getNo());
-		
-		System.out.println("SQL :" + pstmt.toString() );
-		
+
 		int result = pstmt.executeUpdate();
 
-		System.out.println("SQL 실행 결과 :" + result);
-		
 		close(pstmt);
 
 		return result;
 
 	}
 
-	public AccomVo getAccomByNo(Connection conn, String no) throws Exception {
+	public int delete(Connection conn, AccomVo vo) throws Exception {
 
-		String sql = "SELECT * FROM ACCOMMODATION WHERE NO = ?";
+		String sql = "UPDATE ACCOMMODATION SET DEL_YN='Y' WHERE NO=?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, no);
-		ResultSet rs = pstmt.executeQuery();
-
-		AccomVo vo = null;
-		if (rs.next()) {
-			String hostNo = rs.getString("HOST_NO");
-			String name = rs.getString("NAME");
-			String address = rs.getString("ADDRESS");
-			String swimYn = rs.getString("SWIM_YN");
-			String spaYn = rs.getString("SPA_YN");
-			String disabledYn = rs.getString("DISABLED_YN");
-			String parkingYn = rs.getString("PARKING_YN");
-			String elevatorYn = rs.getString("ELEVATOR_YN");
-			String breakfastYn = rs.getString("BREAKFAST_YN");
-			String smokeYn = rs.getString("SMOKE_YN");
-			String imgUrl = rs.getString("IMG_URL");
-
-			vo = new AccomVo();
-			vo.setNo(no);
-			vo.setHostNo(hostNo);
-			vo.setName(name);
-			vo.setAddress(address);
-			vo.setSwimYn(swimYn);
-			vo.setSpaYn(spaYn);
-			vo.setDisabledYn(disabledYn);
-			vo.setParkingYn(parkingYn);
-			vo.setElevatorYn(elevatorYn);
-			vo.setBreakfastYn(breakfastYn);
-			vo.setSmokeYn(smokeYn);
-			vo.setImgUrl(imgUrl);
-		}
-
-		close(rs);
+		pstmt.setString(1, vo.getNo());
+		int result = pstmt.executeUpdate();
+		
 		close(pstmt);
 
-		return vo;
-	}
-
-	public int delete(Connection conn, AccomVo vo) throws Exception{
-		
-		String sql = "DELETE FROM ACCOMMODATION WHERE NO = ? AND HOST_NO = ?";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, vo.getNo());
-        pstmt.setString(2, vo.getHostNo());
-
-        int result = pstmt.executeUpdate();
-        close(pstmt);
-
-        return result;
+		return result;
 	}
 
 }
