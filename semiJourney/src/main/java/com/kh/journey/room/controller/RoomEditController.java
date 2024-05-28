@@ -1,44 +1,31 @@
 package com.kh.journey.room.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 import com.kh.journey.room.service.RoomService;
-import com.kh.journey.room.vo.AttachmentVo;
 import com.kh.journey.room.vo.RoomVo;
-import com.kh.journey.util.file.FileUpload;
 
-@MultipartConfig(
-	maxFileSize = 1024 * 1024 * 50,
-	maxRequestSize = 1024 * 1024 * 500,
-	fileSizeThreshold = 1024 * 1024 * 50
-)
-@WebServlet("/room/insert")
-public class RoomInsertController extends HttpServlet {
+@WebServlet("/room/edit")
+public class RoomEditController extends HttpServlet {
 	
 	private final RoomService service;
 	
 	// Constructor
-	public RoomInsertController() {
+	public RoomEditController() {
 		service = new RoomService();
 	}
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/WEB-INF/views/test.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/test2.jsp").forward(req, resp);
 	} // doGet
-	
-	@SuppressWarnings("resource")
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -107,29 +94,14 @@ public class RoomInsertController extends HttpServlet {
 			vo.setFrigerYn(frigerYn);
 			vo.setHeatingYn(heatingYn);
 			vo.setHairdryerYn(hairdryerYn);
-
-			// 객실 이미지			
-			Collection<Part> parts = req.getParts();
-
-			List<Part> fileList = new ArrayList<Part>();
-			for(Part part: parts) {
-				if(part.getContentType() != null) {
-					fileList.add(part);
-				}
-			}
 			
-			// 서버에 파일 업로드
-			List<AttachmentVo> attVoList = new ArrayList<AttachmentVo>();
-			for(Part f: fileList) {
-				AttachmentVo attVo = FileUpload.saveFile(f);
-				attVoList.add(attVo);
-			}
+			System.out.println(vo);
 			
 			// service 호출
-			int result = service.insert(vo, attVoList);
+			int result = service.edit(vo);
 			
 			if(result < 1) {
-				throw new Exception("객실 등록 실패");
+				throw new Exception("객실 수정 실패");
 			}
 			
 			resp.sendRedirect("/journey/home");

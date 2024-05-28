@@ -115,26 +115,31 @@ document.querySelector('.search-place-button').addEventListener('click', () => {
 
 
 //---------------------------------------------------------------------------------------
-function clickHeart(element) {
-	var roomNo = element.getAttribute('room_no');
 
-	var xhr = new XMLHttpRequest();
-	xhr.open('POST', '/journey/wish/insert', true);
-	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState === XMLHttpRequest.DONE) {
-			if (xhr.status === 200) {
-				alert('위시리스트에 등록되었습니다.');
-				element.querySelector('.heart-empty').style.display = 'none';
-				element.querySelector('.heart-filled').style.display = 'inline';
-			} else if (xhr.status === 401) {
-				alert('로그인이 필요합니다.');
-			} else {
-				alert('위시리스트 등록 중 오류가 발생했습니다. ' + xhr.responseText);
-			}
-		}
-	};
-	xhr.send('roomNo=' + encodeURIComponent(roomNo));
+function clickHeart(element) {
+    const heartEmpty = element.querySelector('.heart-empty');
+    const heartFilled = element.querySelector('.heart-filled');
+    const roomNo = element.getAttribute('data-room-no');
+    
+    // AJAX 요청
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/wish/insert', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // 찜 하트 UI 업데이트
+            if (heartEmpty.style.display === 'block') {
+                heartEmpty.style.display = 'none';
+                heartFilled.style.display = 'block';
+            } else {
+                heartEmpty.style.display = 'block';
+                heartFilled.style.display = 'none';
+            }
+        } else if (xhr.readyState == 4) {
+            alert("찜 기능에 오류가 발생했습니다.");
+        }
+    };
+    xhr.send('roomNo=' + roomNo);
 }
 
 
