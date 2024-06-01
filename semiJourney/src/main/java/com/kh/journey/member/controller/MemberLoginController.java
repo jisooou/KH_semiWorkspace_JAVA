@@ -15,11 +15,11 @@ import com.kh.journey.member.vo.MemberVo;
 @WebServlet("/member/login")
 public class MemberLoginController extends HttpServlet {
 	
-	private MemberService service = null;
+	private final MemberService service;
 	
 	// Constructor
 	public MemberLoginController() {
-		service = new MemberService();
+		this.service = new MemberService();
 	}
 	
 	@Override
@@ -42,12 +42,8 @@ public class MemberLoginController extends HttpServlet {
 			vo.setId(id);
 			vo.setPwd(pwd);
 			
-			System.out.println(vo);
-			
 			// 서비스 호출
-			MemberService service = new MemberService();
-			MemberVo loginMemberVo;
-			loginMemberVo = service.login(vo);
+			MemberVo loginMemberVo = service.login(vo);
 			
 			// 결과
 			if(loginMemberVo != null) {
@@ -60,8 +56,10 @@ public class MemberLoginController extends HttpServlet {
 			resp.sendRedirect("/journey/home");
 			
 		} catch(Exception e) {
+			
+			System.out.println(e.getMessage());
 			e.printStackTrace();
-			req.setAttribute("errMsg", "로그인 중 에러 발생");
+			req.setAttribute("errMsg", e.getMessage());
 			req.getRequestDispatcher("/WEB-INF/views/common/error.jsp").forward(req, resp);
 		}
 	} // doPost

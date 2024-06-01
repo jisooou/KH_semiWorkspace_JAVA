@@ -1,0 +1,132 @@
+/* 전체 레이아웃 */
+main {
+	padding: 120px 20% 20px 20%;
+	word-break:keep-all;
+}
+
+main h1, main h2 {
+	margin: 20px 0;
+}
+
+/*예정된 예약*/
+.roomScheduleOutter {
+	display: grid;
+	gap: 20px;
+	padding: 30px;
+}
+
+.roomSchedule {
+	width: 80%;
+	height: 90%;
+	border-radius: 20px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	box-shadow: 5px 5px 10px rgb(215, 215, 215);
+}
+
+.place-name {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#place-name {
+	font-weight: bold;
+}
+
+#roomText {
+	padding: 20px;
+	height: 400px;
+}
+
+.roomImgDiv{
+	width: 100%;
+	height: 90%;
+}
+
+#roomImg {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 20px;
+}
+
+.hostInfo {
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+	grid-template-rows: auto auto;
+}
+
+.hostProfile {
+	grid-row: span 2;
+	width: 50px;
+	height: 50px;
+	border-radius: 50px;
+	object-fit: cover;
+}
+
+/*이전 여행지*/
+.imageContainer {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 20px;
+	padding: 30px;
+}
+
+.roomContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 20px;
+	background-color: white;
+	border-radius: 20px;
+	box-shadow: 5px 5px 10px rgba(215, 215, 215, 0.7);
+}
+
+.roomContainer img {
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+	border-radius: 8px;
+}
+
+.historyText {
+	display: grid;
+	grid-template-columns: 3fr 1fr;
+	grid-template-rows: 1fr 1fr;
+}
+
+/*리뷰 작성 버튼*/
+.reviewBtnDiv {
+	grid-row: span 2;
+}
+
+.reviewBtn, .cancelBtn {
+	grid-row: span 2;
+	width: 80px;
+	height: 50px;
+	background-color: #ff5a5f;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background-color 0.3s;
+	font-weight: bold;
+}
+
+.reviewBtn:hover, .cancelBtn:hover {
+	width: 81px;
+	height: 51px;
+	font-size: 17px;
+}
+
+.completedReviewBtn {
+	width: 80px;
+	height: 50px;
+	background-color: gray;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	font-weight: bold;
+}

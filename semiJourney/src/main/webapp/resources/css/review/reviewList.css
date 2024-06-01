@@ -1,0 +1,106 @@
+/* -------메인-------- */
+main {
+	padding: 40px 25px;
+	margin-top: 93px;
+	background-color: #f7f7f7;
+}
+
+.review-section {
+	max-width: 800px;
+	margin: 0 auto;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.review-container {
+	margin-bottom: 20px;
+}
+
+h2 {
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+hr {
+	border: 0;
+	height: 1px;
+	background: #ddd;
+	margin-bottom: 20px;
+}
+
+/* -------리뷰 표-------- */
+.review-table {
+	width: 100%;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+.review-table th, .review-table td {
+	padding: 10px;
+	border: 1px solid #ddd;
+	text-align: left;
+}
+
+.review-table th {
+	background-color: #f9f9f9;
+}
+
+.writer-info, .room-info{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+
+.memberProfile {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.writer-name, .roomName {
+	font-weight: bold;
+}
+
+.roomImg {
+	width: 50px;
+	height: 50px;
+	border-radius: 5%;
+	margin-right: 10px;
+}
+
+/* -------버튼-------- */
+.deleteBtn {
+	display: inline-block;
+	padding: 10px 20px;
+	background-color: #ff5a5f;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background-color 0.3s;
+}
+
+.deleteBtn:hover {
+	background-color: #e04e50;
+}
+
+.editBtn {
+	display: inline-block;
+	padding: 5px 5px;
+	background-color: #ff5a5f;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 12px;
+	transition: background-color 0.3s;
+}
+
+.editBtn:hover {
+	background-color: #e04e50;
+}

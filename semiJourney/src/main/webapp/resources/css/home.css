@@ -514,6 +514,7 @@ section {
 	grid-template-columns: repeat(4, 1fr);
 	gap: 20px;
 	padding: 50px 30px;
+	cursor: pointer;
 }
 
 .image-container {
@@ -542,8 +543,8 @@ section {
 .heart-icon {
 	/* 자식에 absolute */
 	position: absolute;
-	top: 20px;
-	right: 20px;
+	top: 40%;
+	right: 40%;
 	cursor: pointer;
 }
 
@@ -568,6 +569,13 @@ section {
 	display: block;
 }
 /* ------------- */
+
+/*----찜 코드-----*/
+#gym{
+	cursor: pointer;
+}
+/*--------------*/
+
 #place-score {
 	display: flex;
 	justify-content: right;

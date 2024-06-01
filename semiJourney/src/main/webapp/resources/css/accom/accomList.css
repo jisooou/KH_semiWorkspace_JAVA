@@ -1,0 +1,94 @@
+.accom-container {
+	max-width: 90%;
+	height: 52vh;
+	margin: 0 auto;
+	padding: 50px;
+	padding-top: 180px;
+	padding-right: 80px;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+}
+
+.accom-list {
+	display: flex;
+	flex-direction: column;
+	align-items: center; 
+	padding-top: 7px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	width: 75%; 
+	margin-right: 20px;
+	word-break: keep-all;
+}
+
+.accom-list img {
+	margin-top: 10px;
+	display: block;
+	width: 80%;
+	height: 300px;
+	border-radius: 20px;
+	object-fit: cover;
+}
+
+.accom-detail {
+	padding-left: 35px;
+	padding-right: 15px;
+	padding-top: 10px;
+}
+
+.accom-detail h3 {
+	margin: 0;
+	font-size: 16px;
+	cursor:pointer;
+}
+
+.accom-detail p {
+	margin: 5px 0;
+	color: #666;
+}
+
+.status {
+	display: inline-block;
+	padding: 2px 6px;
+	font-size: 12px;
+	color: #fff;
+	background-color: #ff6f61;
+	border-radius: 4px;
+	margin-top: 10px;
+}
+
+form {
+	display: inline;
+}
+
+.accom-detail form button{
+	cursor: pointer;
+	width: 125px;
+	height: 25px;
+	background-color: black;
+	border: none;
+	border-radius: 20px;
+	color: white;
+}
+
+.accom-detail form button:hover{
+	background-color: #808080;
+	color: white;
+}
+
+.accom-detail > button{
+	cursor: pointer;
+	width: 125px;
+	height: 25px;
+	background-color: #ff6f61;
+	border: none;
+	border-radius: 20px;
+	color: white;
+}
+
+.accom-detail > button:hover{
+	background-color: #da8787;
+	color: white;
+}

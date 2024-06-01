@@ -19,7 +19,7 @@ public class MemberQuitController extends HttpServlet {
 	
 	// Constructor
 	public MemberQuitController() {
-		service = new MemberService();
+		this.service = new MemberService();
 	}
 	
 	@Override
@@ -32,11 +32,10 @@ public class MemberQuitController extends HttpServlet {
 			String no = loginMemberVo.getNo();
 			
 			// 복잡한 작업
-			MemberService ms = new MemberService();
-			int result = ms.quit(no);
+			int result = service.quit(no);
 			
 			// 결과
-			if(result != 1) {
+			if(result < 1) {
 				throw new Exception("회원 탈퇴 실패");
 			}
 			
@@ -46,8 +45,10 @@ public class MemberQuitController extends HttpServlet {
 			resp.sendRedirect("/journey/home");
 			
 		} catch(Exception e) {
+			
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			req.setAttribute("errMsg", e.getMessage());
 			req.getRequestDispatcher("/WEB-INF/views/common/error.jsp").forward(req, resp);
 		}
 	} // doGet

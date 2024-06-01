@@ -20,11 +20,10 @@ public class ReviewInsertController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		// 서비스 호출
-		ReviewService bc = new ReviewService();
+		String reserveNo = req.getParameter("reserveNo");
 		// 결과출력
+		req.setAttribute("reserveNo", reserveNo);
 		req.getRequestDispatcher("/WEB-INF/views/review/insert.jsp").forward(req, resp);
-
 	}
 
 	@Override
@@ -36,8 +35,8 @@ public class ReviewInsertController extends HttpServlet {
 			MemberVo loginMemberVo = (MemberVo) session.getAttribute("loginMemberVo");
 
 			// 데이터 꺼내기
-			String writerNo = "1";
-			String reserveNo = "1";
+			String writerNo = loginMemberVo.getNo();
+			String reserveNo = req.getParameter("reserveNo");
 			String content = req.getParameter("content");
 			String accuracy = req.getParameter("accuracy");
 			String clean = req.getParameter("clean");
@@ -46,6 +45,7 @@ public class ReviewInsertController extends HttpServlet {
 			String communication = req.getParameter("communication");
 
 			ReviewVo vo = new ReviewVo();
+			vo.setWriterNo(writerNo);
 			vo.setReserveNo(reserveNo);
 			vo.setContent(content);
 			vo.setAccuracy(accuracy);
@@ -56,20 +56,20 @@ public class ReviewInsertController extends HttpServlet {
 
 			// 서비스 호출
 			ReviewService bs = new ReviewService();
-			int result = bs.insert(vo);
+			int result = bs.reviewInsert(vo);
 
 			if (result != 1) {
+				session.setAttribute("alertMsg", "리뷰 작성 실패");
+
 				throw new Exception("리뷰 작성 실패");
 			}
-
-			
-			resp.sendRedirect("/app/home");
+			session.setAttribute("alertMsg", "리뷰 작성 성공");
+			resp.sendRedirect("/journey/member/review/list");
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
-			req.setAttribute("errMsg", e.getMessage());
-			req.getRequestDispatcher("/WEB-INF/views/common/error.jsp").forward(req, resp);
+
 		}
 
 		// 결과 출력

@@ -18,15 +18,17 @@ public class ReviewListController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-			//해당 room 리뷰리스트보기
-			String roomNoStr = req.getParameter("roomNo");
-			int roomNo = Integer.parseInt(roomNoStr); // 정수로 변환 
-
 			ReviewService rs = new ReviewService();
-			List<ReviewVo> voList = rs.getReviewsByPage(roomNo);
+			String roomNo = req.getParameter("roomNo");
+			
+			List<ReviewVo> voList = rs.getReviewListAllByRoomNo(roomNo);
+
+			System.out.println(voList);
 			req.setAttribute("voList", voList);
 			req.getRequestDispatcher("/WEB-INF/views/review/list.jsp").forward(req, resp);
-		} catch (Exception e) {
+		} catch (
+
+		Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 			req.setAttribute("errMsg", e.getMessage());

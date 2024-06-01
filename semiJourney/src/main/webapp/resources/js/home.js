@@ -1,8 +1,3 @@
-// 프로필 클릭 시 창 나오도록
-function showAccountContent() {
-	document.getElementById('account-content').classList.toggle('show');
-}
-
 //찜 기능
 function clickHeart(element) {
 	element.classList.toggle('liked');
@@ -39,57 +34,6 @@ document.querySelectorAll('.people-count').forEach(control => {
 	});
 });
 
-// 계정 선택할 수 있도록 (회원가입)
-function showJoin() {
-	document.getElementById('select-account-join').classList.toggle('show');
-}
-// 닫기 버튼
-document.getElementById('close-button-join').addEventListener('click', function() {
-	document.getElementById('select-account-join').classList.remove('show');
-});
-
-// 계정 선택할 수 있도록 (로그인)
-function showLogin() {
-	document.getElementById('select-account-login').classList.toggle('show');
-}
-// 닫기 버튼
-document.getElementById('close-button-login').addEventListener('click', function() {
-	document.getElementById('select-account-login').classList.remove('show');
-});
-
-// 회원의 회원가입 창 나올 수 있도록 
-function showMemberJoin() {
-	document.getElementById('join-content').classList.toggle('show');
-}
-// 닫기 버튼
-document.getElementById('join-close-button').addEventListener('click', function() {
-	document.getElementById('join-content').classList.remove('show');
-});
-
-// 회원의 로그인 창 나올 수 있도록
-function showMemberLogin() {
-	document.getElementById('login-content').classList.toggle('show');
-}
-// 닫기 버튼
-document.getElementById('login-close-button').addEventListener('click', function() {
-	document.getElementById('login-content').classList.remove('show');
-});
-
-// 비밀번호 보기, 숨기기
-function showPassword() {
-	const passwordField = document.getElementById('login-password');
-	const showPasswordButton = document.querySelector('.show-password');
-
-	if (passwordField.type === 'password') {
-		passwordField.type = 'text';
-		showPasswordButton.textContent = '비밀번호 숨기기';
-	} else {
-		passwordField.type = 'password';
-		showPasswordButton.textContent = '비밀번호 보기';
-	}
-}
-
-
 // 여행지 검색 
 function updateSearchBar(value) {
 	document.getElementById('search-destination').textContent = value;
@@ -115,34 +59,75 @@ document.querySelector('.search-place-button').addEventListener('click', () => {
 
 
 //---------------------------------------------------------------------------------------
-
+/*
 function clickHeart(element) {
-    const heartEmpty = element.querySelector('.heart-empty');
-    const heartFilled = element.querySelector('.heart-filled');
-    const roomNo = element.getAttribute('data-room-no');
-    
-    // AJAX 요청
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/wish/insert', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            // 찜 하트 UI 업데이트
-            if (heartEmpty.style.display === 'block') {
-                heartEmpty.style.display = 'none';
-                heartFilled.style.display = 'block';
-            } else {
-                heartEmpty.style.display = 'block';
-                heartFilled.style.display = 'none';
-            }
-        } else if (xhr.readyState == 4) {
-            alert("찜 기능에 오류가 발생했습니다.");
+	var roomNo = element.getAttribute('room_no');
+	var memNo = element.getAttribute('mem_no');
+
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', '/journey/wish/insert', true);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === XMLHttpRequest.DONE) {
+			if (xhr.status === 200) {
+				alert('위시리스트에 등록되었습니다.');
+				element.querySelector('.heart-empty').style.display = 'none';
+				element.querySelector('.heart-filled').style.display = 'inline';
+			} else if (xhr.status === 401) {
+				alert('로그인이 필요합니다.');
+			} else {
+				alert('위시리스트 등록 중 오류가 발생했습니다. ' + xhr.responseText);
+			}
+		}
+	};
+	xhr.send('roomNo=' + encodeURIComponent(roomNo));
+}
+*/
+
+
+
+/*찜 클릭시 db에 등록 + 로그인 안 하면 알림창 띄우기 */
+function clickHeart(roomNo, memberNo) {
+    $.ajax({
+        url: 'http://127.0.0.1:8888/journey/wish/insert',
+        method: 'post',
+        data: {
+            memberNo: memberNo,
+            roomNo: roomNo
+        },
+        success: (data) => {
+            console.log("통신 성공");
+            console.log(memberNo);
+            console.log(roomNo);
+            console.log(data);
+            alert("위시리스트에 등록되었습니다.");
+        },
+        error: (error) => { 
+            console.log("통신 실패");
+            console.log(error);
         }
-    };
-    xhr.send('roomNo=' + roomNo);
+    });
 }
 
-
+function clickNothing() {
+    alert("로그인 후 이용 가능합니다");
+    $.ajax({
+        url: 'http://127.0.0.1:8888/journey/home',
+        method: 'get',
+        data: {
+            alerMsg: "로그인 후 이용 가능합니다"
+        },
+        success: (data) => {
+            console.log("통신 성공");
+            console.log(data);
+        },
+        error: (error) => { 
+            console.log("통신 실패");
+            console.log(error);
+        }
+    });
+}
+//---------------------------------------------------------------------------------------
 
 // ----------------------------------------------------
 // Calendar 관련 함수 -> ChatGPT

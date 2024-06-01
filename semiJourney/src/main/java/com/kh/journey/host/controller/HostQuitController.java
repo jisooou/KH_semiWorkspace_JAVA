@@ -15,11 +15,11 @@ import com.kh.journey.host.vo.HostVo;
 @WebServlet("/host/quit")
 public class HostQuitController extends HttpServlet {
 
-	private HostService service = null;
+	private final HostService service;
 	
 	// Constructor
 	public HostQuitController() {
-		service = new HostService();
+		this.service = new HostService();
 	}
 	
 	@Override
@@ -45,8 +45,10 @@ public class HostQuitController extends HttpServlet {
 			resp.sendRedirect("/journey/home");
 			
 		} catch(Exception e) {
+			
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			req.setAttribute("errMsg", e.getMessage());
 			req.getRequestDispatcher("/WEB-INF/views/common/error.jsp").forward(req, resp);
 		}
 	} // doGet

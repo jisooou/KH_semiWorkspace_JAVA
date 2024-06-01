@@ -15,11 +15,11 @@ import com.kh.journey.host.vo.HostVo;
 @WebServlet("/host/login")
 public class HostLoginController extends HttpServlet {
 	
-	private HostService service = null;
+	private final HostService service;
 	
 	// Constructor
 	public HostLoginController() {
-		service = new HostService();
+		this.service = new HostService();
 	}
 	
 	@Override
@@ -42,12 +42,8 @@ public class HostLoginController extends HttpServlet {
 			vo.setId(id);
 			vo.setPwd(pwd);
 			
-			System.out.println(vo);
-			
 			// 서비스 호출
-			HostService service = new HostService();
-			HostVo loginHostVo;
-			loginHostVo = service.login(vo);
+			HostVo loginHostVo = service.login(vo);
 			
 			// 결과
 			if(loginHostVo != null) {
@@ -57,12 +53,13 @@ public class HostLoginController extends HttpServlet {
 				session.setAttribute("alertMsg", "로그인 실패");
 			}
 			
-//			바꿔야 할까요? 
-			resp.sendRedirect("/journey/accom/insert");
+			resp.sendRedirect("/journey/home");
 			
 		} catch(Exception e) {
+			
+			System.out.println(e.getMessage());
 			e.printStackTrace();
-			req.setAttribute("errMsg", "로그인 중 에러 발생");
+			req.setAttribute("errMsg", e.getMessage());
 			req.getRequestDispatcher("/WEB-INF/views/common/error.jsp").forward(req, resp);
 		}
 	} // doPost

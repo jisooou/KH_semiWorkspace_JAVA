@@ -2,6 +2,8 @@ package com.kh.journey.wish.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.kh.journey.member.vo.MemberVo;
+import com.google.gson.Gson;
 import com.kh.journey.wish.service.WishService;
 import com.kh.journey.wish.vo.WishVo;
 
@@ -21,51 +23,56 @@ public class WishDeleteController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
-			
-//			로그인 확인
 			HttpSession session = req.getSession();
-			MemberVo loginMemberVo = (MemberVo) session.getAttribute("loginMemberVo");
-			if(loginMemberVo == null) {
-//				throw new Exception("로그인이 필요합니다.");
-				PrintWriter out = resp.getWriter();
-				out.write("로그인이 필요합니다.");
+			
+			// 데이터 꺼내기
+			String wishNo = req.getParameter("wishNo");
+			String memberNo = req.getParameter("memberNo");
+			
+			// 로그인 확인
+			if(memberNo == null) {
+				throw new Exception("로그인이 필요합니다.");
 			}
 			
-			
-			//데이터 꺼내기
-			String no = req.getParameter("no");
-			String memberNo = loginMemberVo.getNo();
-			
 			WishVo wishVo = new WishVo();
-		 	wishVo.setNo(no);
+		 	wishVo.setNo(wishNo);
             wishVo.setMemNo(memberNo);
 			
+            System.out.println("vo: " + wishVo);
+            
 			//서비스 호출 
 			WishService ws = new WishService();
 			int result = ws.delete(wishVo);
 			
-			if(result != 1) {
-				throw new Exception("위시리스트 삭제를 실패했습니다.");
-			}
+			//결과
+			Map<String, Integer> map = new HashMap<>();
 			
-			//결과 
-			session.setAttribute("alertMsg", "위시리스트 삭제를 성공했습니다.");
-			resp.sendRedirect("/journey/wish/list");
+			map.put("result", result);
 			
-		}catch(Exception e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-			req.setAttribute("errMsg", e.getMessage());
-			req.getRequestDispatcher("/WEB-INF/views/common/error.jsp").forward(req, resp);
-		}
-		
+			Gson gson = new Gson();
+			String jsonStr = gson.toJson(map);
+			resp.setContentType("application/json; charset=UTF-8");
+			PrintWriter out = resp.getWriter();
+			
+			out.write(jsonStr);
+			
+			 // 결과
+	         if(result < 1) {
+	            session.setAttribute("alertMsg", "위시리스트 삭제 실패");
+	            throw new Exception("위시리스트 삭제 실패");
+	         }
+	         session.setAttribute("alertMsg", "위시리스트 삭제 성공");
+	         
+	         resp.sendRedirect("/journey/home");
+	         
+	      } catch (Exception e) {
+	         System.out.println(e.getMessage());
+	         e.printStackTrace();
+	      }
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
 		doGet(req, resp);
-		
 	}
-
 }

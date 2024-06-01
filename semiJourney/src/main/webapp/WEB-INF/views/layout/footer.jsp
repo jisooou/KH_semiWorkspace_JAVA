@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <footer class="footer">
 	<div class="footer-content">
@@ -53,10 +54,10 @@
 		<span>한국어 (KR)</span> <span>₩ KRW</span>
 	</div>
 	<div class="footer-sns">
-		<img src="../resources/img/facebook.png" alt="facebook"> <img
-			src="../resources/img/twitter.png" alt="twitter"> <img
-			src="../resources/img/instagram.png" alt="instagram"> <img
-			src="../resources/img/blog.png" alt="blog">
+		<img src="/journey/resources/img/footer/facebook.png" alt="facebook"> <img
+			src="/journey/resources/img/footer/twitter.png" alt="twitter"> <img
+			src="/journey/resources/img/footer/instagram.png" alt="instagram"> <img
+			src="/journey/resources/img/footer/blog.png" alt="blog">
 	</div>
 	<div class="footer-bottom">
 		<span>© 2024 여정, Inc.</span>

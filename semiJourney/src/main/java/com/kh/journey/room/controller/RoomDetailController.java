@@ -22,33 +22,38 @@ public class RoomDetailController extends HttpServlet {
 	
 	// Constructor
 	public RoomDetailController() {
-		service = new RoomService();
+		this.service = new RoomService();
 	}
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
+			// data
+			String no = req.getParameter("no");
+			
 			// service 호출
-			RoomVo vo = service.getRoomDetail();
-			List<AttachmentVo> attVoList = service.getAttachment();
-			List<ReviewVo> reVoList = service.getReview();
+			RoomVo vo = service.getRoomDetail(no);
+			List<AttachmentVo> attVoList = service.getAttachment(no);
+			List<ReviewVo> reVoList = service.getReview(no);
 
 			// 결과
 			if(vo == null) {
 				throw new Exception("객실 상세 조회 실패");
 			}
 			
-			System.out.println(vo);
-			
 			req.setAttribute("vo", vo);
 			req.setAttribute("attVoList", attVoList);
 			req.setAttribute("reVoList", reVoList);
 			
-			req.getRequestDispatcher("/WEB-INF/views/detail2.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/views/room/detail.jsp").forward(req, resp);
 			
 		} catch(Exception e) {
+			
+			System.out.println(e.getMessage());
 			e.printStackTrace();
+			req.setAttribute("errMsg", e.getMessage());
+			req.getRequestDispatcher("/WEB-INF/views/common/error.jsp").forward(req, resp);
 		}
 	} // doGet
 	
