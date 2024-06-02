@@ -9,15 +9,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>숙소 등록</title>
 
+<link rel="stylesheet" href="/journey/resources/css/accom/accomInsert.css">
+<link rel="stylesheet" href="/journey/resources/css/layout/header.css">
+<link rel="stylesheet" href="/journey/resources/css/layout/footer.css">
+
+<script defer src="/journey/resources/js/layout/header.js"></script>
+
+<%@ include file="/WEB-INF/views/layout/util.jsp" %>
+
 </head>
 <body>
 
-	<header> 
-		<h1>숙소 등록 </h1>
-	</header>
+	<%@ include file="/WEB-INF/views/layout/header.jsp"%>
 
-	<main>
-		<form action="/journey/accom/insert" method="post" enctype="multipart/form-data">
+	<h1>숙소 등록 </h1>
+
+	<main class="main-container">
+		<form class="form-container" action="/journey/accom/insert" method="post" enctype="multipart/form-data">
 			<div>
 				<label for="name">숙소 이름:</label> 
 				<input type="text" id="name" name="name" required>
@@ -76,13 +84,26 @@
 				</select>
 			</div>
 			<div>
+				<label for="latitude">위도:</label> 
+				<input type="text" id="latitude" name="latitude">
+			</div>
+			<div>
+				<label for="longitude">경도:</label> 
+				<input type="text" id="longitude" name="longitude">
+			</div>
+			<div>
 				<label for="imgUrl">이미지 업로드:</label> 
 				<input type="file" id="imgUrl" name="imgUrl" required>
 			</div>
-			<button type="submit">등록</button>
+			<button type="submit">등 록</button>
 		</form>
+		<div class="map-container">
+		
+		</div>
 		
 	</main>
+	
+	<%@ include file="/WEB-INF/views/layout/footer.jsp"%>
 	
 </body>
 </html>

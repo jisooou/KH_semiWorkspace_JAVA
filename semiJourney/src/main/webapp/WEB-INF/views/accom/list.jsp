@@ -21,6 +21,8 @@
 
 	<%@ include file="/WEB-INF/views/layout/header.jsp"%>
 
+	<h1>숙소 수정 및 삭제</h1>
+
 	<div class="accom-container">
 		<c:choose>
 			<c:when test="${not empty voList}">

@@ -35,10 +35,10 @@
 					<div id="place-name">${room.name}</div>
 					<c:choose>
 						<c:when test="${not empty sessionScope.loginMemberVo}">
-							<button id="gym" onclick="deleteWish('${room.wishNo}', '${sessionScope.loginMemberVo.no}')">취소</button>
+							<button class="gym" id="gym" onclick="deleteWish('${room.wishNo}', '${sessionScope.loginMemberVo.no}')">취소</button>
 						</c:when>
 						<c:otherwise>
-							<button id="gym" onclick="clickNothing()">취소</button>
+							<button class="gym" id="gym" onclick="clickNothing()">취소</button>
 						</c:otherwise>
 					</c:choose>
 					<div id="place-score">★ ${room.grade}</div>
